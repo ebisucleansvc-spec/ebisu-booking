@@ -9,6 +9,7 @@ var SHOP_NAME   = 'えびすクリーンサービス';
 var SHOP_PHONE  = '';   // 例：'090-0000-0000'（受付メールに記載）
 var NOTIFY_TO   = '';   // 予約通知の送り先。空ならこのスクリプトの所有者のGmailに送ります
 var SHEET_NAME  = '予約一覧';
+var SPREADSHEET_ID = '';  // 保存先スプレッドシートのID（URLの /d/ と /edit の間）。空ならスクリプトを開いたスプレッドシート
 
 // 料金（フロントの config.js と同じ金額にしてください）
 var PRICES = {
@@ -27,8 +28,12 @@ function setup() {
   Logger.log('シート「' + SHEET_NAME + '」を準備しました: ' + sh.getParent().getUrl());
 }
 
+function ss_() {
+  return SPREADSHEET_ID ? SpreadsheetApp.openById(SPREADSHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+}
+
 function getSheet_() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = ss_();
   var sh = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
   if (sh.getLastRow() === 0) {
     sh.appendRow(HEADERS);
@@ -80,7 +85,7 @@ function doPost(e) {
     MailApp.sendEmail({
       to: NOTIFY_TO || Session.getEffectiveUser().getEmail(), replyTo: d.email,
       subject: '【新規予約】' + id + ' ' + d.name + ' 様（' + d.area + '）概算 ¥' + est.total.toLocaleString(),
-      body: '新しい予約が入りました。\n\n' + body + '\n\nスプレッドシート：' + SpreadsheetApp.getActiveSpreadsheet().getUrl()
+      body: '新しい予約が入りました。\n\n' + body + '\n\nスプレッドシート：' + ss_().getUrl()
     });
     return json_({ ok: true, id: id });
   } catch (ex) {
