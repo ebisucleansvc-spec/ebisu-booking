@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>エアコンクリーニング ご予約｜えびすクリーンサービス</title>
+<meta name="description" content="えびすクリーンサービスのエアコンクリーニング予約フォーム。台数とオプションを選ぶと概算金額がその場でわかります。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="brand">えびすクリーンサービス</p>
+    <h1>エアコンクリーニング<br class="sp">ご予約フォーム</h1>
+    <p class="lead">台数とオプションを選ぶと、その場で概算金額がわかります。送信後すぐに受付メールが届き、作業日は担当者からご連絡のうえ確定します。</p>
+    <ol class="steps" aria-label="ご予約の流れ">
+      <li><span>1</span>台数・オプション</li>
+      <li><span>2</span>お客様情報</li>
+      <li><span>3</span>送信・受付メール</li>
+    </ol>
+  </div>
+</header>
+
+<main class="wrap">
+<form id="bookingForm" novalidate>
+
+  <section class="card" aria-labelledby="s1">
+    <h2 id="s1"><span class="num">1</span>台数とオプションを選ぶ</h2>
+
+    <div id="unitRows"></div>
+
+    <h3 class="sub">オプション <small>（台数分までお選びいただけます）</small></h3>
+    <div id="optionRows"></div>
+  </section>
+
+  <div class="estimate" id="estimate" aria-live="polite">
+    <div class="estimate-inner">
+      <span class="estimate-label">概算金額</span>
+      <span class="estimate-price"><span id="estimateTotal">¥0</span><small>税込</small></span>
+    </div>
+    <button type="button" class="estimate-detail-btn" id="toggleDetail" aria-expanded="false">内訳を見る</button>
+    <ul class="estimate-detail" id="estimateDetail" hidden></ul>
+  </div>
+  <p class="note">※概算です。駐車場代は別途実費となります。特殊な事情で追加料金が発生する場合は、必ず作業前にご説明します。</p>
+
+  <section class="card" aria-labelledby="s2">
+    <h2 id="s2"><span class="num">2</span>ご予約情報を入力する</h2>
+
+    <div class="field">
+      <label for="name">お名前 <em>必須</em></label>
+      <input id="name" name="name" type="text" autocomplete="name" required placeholder="例）恵比寿 花子">
+    </div>
+    <div class="field">
+      <label for="tel">電話番号 <em>必須</em></label>
+      <input id="tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required placeholder="例）090-1234-5678" pattern="[0-9０-９\-－ ]{10,15}">
+    </div>
+    <div class="field">
+      <label for="email">メールアドレス <em>必須</em><span class="hint">受付メールの送り先です</span></label>
+      <input id="email" name="email" type="email" autocomplete="email" required placeholder="例）hanako@example.com">
+    </div>
+    <div class="field two">
+      <div>
+        <label for="zip">郵便番号</label>
+        <input id="zip" name="zip" type="text" autocomplete="postal-code" inputmode="numeric" placeholder="例）150-0013">
+      </div>
+      <div>
+        <label for="area">エリア <em>必須</em></label>
+        <select id="area" name="area" required><option value="">選択してください</option></select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="address">ご住所 <em>必須</em></label>
+      <input id="address" name="address" type="text" autocomplete="street-address" required placeholder="市区町村・番地・建物名・部屋番号">
+    </div>
+    <fieldset class="field">
+      <legend>お住まいのタイプ <em>必須</em></legend>
+      <div class="chips" data-name="houseType"></div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>作業のご希望日時 <em>必須</em><span class="hint">第3希望までご入力ください</span></legend>
+      <div id="dateRows"></div>
+      <p class="note small">※ご希望日での対応が難しい場合は、1〜2日以内に日程調整のご連絡をいたします。</p>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>お支払い方法 <em>必須</em></legend>
+      <div class="chips" data-name="payment"></div>
+    </fieldset>
+    <fieldset class="field">
+      <legend>駐車場 <em>必須</em><span class="hint">駐車場代は別途実費となります</span></legend>
+      <div class="chips" data-name="parking"></div>
+    </fieldset>
+    <fieldset class="field">
+      <legend>エアコン以外のお掃除のご相談 <span class="opt">任意</span><span class="hint">料金は担当者からご案内します</span></legend>
+      <div class="chips multi" data-name="otherCleaning"></div>
+    </fieldset>
+
+    <div class="field">
+      <label for="message">ご要望・備考 <span class="opt">任意</span></label>
+      <textarea id="message" name="message" rows="4" placeholder="エアコンのメーカー・設置場所、気になる点などがあればご記入ください"></textarea>
+    </div>
+    <div class="field">
+      <label for="referral">紹介コード <span class="opt">任意</span></label>
+      <input id="referral" name="referral" type="text" placeholder="ご紹介いただいた方のみ">
+    </div>
+    <div class="hp" aria-hidden="true">
+      <label for="website">このフィールドは空のままにしてください</label>
+      <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+    </div>
+
+    <label class="agree"><input type="checkbox" id="agree" required> <span>入力内容を確認し、<a href="#privacy">個人情報の取り扱い</a>に同意します</span></label>
+  </section>
+
+  <div class="errors" id="errors" role="alert" hidden></div>
+  <button type="submit" class="submit" id="submitBtn">この内容で予約を申し込む</button>
+  <p class="note center">送信後、受付メールをお送りします。作業日は担当者よりご連絡し確定します。</p>
+</form>
+
+<section class="done card" id="done" hidden tabindex="-1">
+  <div class="done-icon" aria-hidden="true">✓</div>
+  <h2>ご予約を受け付けました</h2>
+  <p>受付番号：<strong id="doneId">-</strong></p>
+  <p id="doneMsg">ご入力のメールアドレスに受付メールをお送りしました。担当者より作業日確定のご連絡をいたします。</p>
+  <p class="note">メールが届かない場合は、迷惑メールフォルダをご確認いただくか、お電話でお問い合わせください。</p>
+</section>
+
+<section id="privacy" class="card privacy">
+  <h2>個人情報の取り扱い</h2>
+  <p>ご入力いただいた個人情報は、ご予約の確認・作業日の調整・作業のご連絡のためにのみ利用し、法令に基づく場合を除き第三者へ提供することはありません。</p>
+</section>
+</main>
+
+<footer class="footer">
+  <p class="brand">えびすクリーンサービス</p>
+  <p id="footerContact"></p>
+</footer>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
