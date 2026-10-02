@@ -3,7 +3,7 @@
 window.BOOKING_CONFIG = {
   // GASのウェブアプリURL（https://script.google.com/macros/s/xxxx/exec）
   // 空のままだと「デモモード」になり、送信しても保存・メール送信はされません。
-  gasUrl: "",
+  gasUrl: "https://script.google.com/macros/s/AKfycbxSnP3b6UpLTIx4V0tdnPvtYoqW3Wvo1EFQAdKyTmoykZpzz5Dc0zduQf8Sv9BCZbLmuw/exec",
 
   shopName: "えびすクリーンサービス",
   phone: "",            // 例："090-0000-0000"（空ならフッターに表示しません）
